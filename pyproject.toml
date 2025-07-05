@@ -1,0 +1,35 @@
+[project]
+name = "lt25"
+version = "0.1.1"
+description = "🎸 Cross-platform python interface for LT25 guitar amplifier"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+dependencies = [
+  "protobuf>=5.0.0",
+  "hidapi; sys_platform != 'win32'",
+  "pywinusb; sys_platform == 'win32'",
+]
+
+classifiers = [
+  "Programming Language :: Python :: 3",
+	"Programming Language :: Python :: 3.8",
+	"Programming Language :: Python :: 3.9",
+	"Programming Language :: Python :: 3.10",
+	"Programming Language :: Python :: 3.11",
+	"Programming Language :: Python :: 3.12",
+  "Operating System :: OS Independent",
+	"Development Status :: 3 - Alpha",
+	"Topic :: Software Development :: Libraries :: Python Modules",
+	"Topic :: System :: Hardware :: Universal Serial Bus (USB)",
+	"Topic :: Artistic Software",
+  "License :: OSI Approved :: MIT License"
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "https://github.com/bendertools/lt25.py"
+Repository = "https://github.com/bendertools/lt25.py"
