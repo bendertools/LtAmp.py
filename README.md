@@ -4,15 +4,15 @@
 [![wakatime](https://wakatime.com/badge/user/7482ea9d-3085-4e9b-95ad-1ca78a14d948/project/08632cd5-4928-49fb-8d0d-2d8f2bebbdad.svg)](https://wakatime.com/badge/user/7482ea9d-3085-4e9b-95ad-1ca78a14d948/project/08632cd5-4928-49fb-8d0d-2d8f2bebbdad)
 ![MIT License](https://img.shields.io/github/license/bendertools/lt25.py)
 
-🎸 A cross-platform Python module for interacting with the LT25 amplifier made by a certain equine-named guitar manufacture that rhymes with "bender".
+🎸 A cross-platform Python module for interacting with the LT25 amplifier from a certain guitar company that rhymes with "bender" and names products after horses. 
 
 ## 👋 Introduction
 
-I made this module because I was disappointed by the lack of certain features in both my amp itself as well as the associated desktop app provided by its manufacturer. Failing to find solutions which used modern languages/technologies I could build upon (.NET doesnt count), I made my own package based on the reverse-engineering work others initiated.
+I made this libray because I was disappointed by the lack of certain features in both my amp itself as well as the associated desktop app provided by its manufacturer. Failing to find a starting point which used modern languages/technologies I could build upon (.NET doesnt count), I developed this little module based on the reverse-engineering work others initiated.
 
 ### ⚙️ Specifications
 
-This library requires Python 3.8+ to be installed on your system (due to demands of the protobuf 5 module). Additionally, the library only supports HID USB operations (not MIDI)
+This library requires Python 3.8+ to be installed on your system (due to demands of the protobuf 5 module). Additionally, the library only supports HID USB operations (no MIDI).
 
 ## 🚀 Quickstart
 
@@ -30,10 +30,10 @@ For full documentation of the LT25 class, refer to the [wiki](/wiki)
 **Demonstration loop:**
 
 > [!WARNING]
-> On some linux distros, `sudo`-mode is required for interacting with USB devices.
+> On some linux distros, `sudo`-mode is required for running python files which interact with USB devices.
 
 
-```
+```python
 import time
 import lt25
 
@@ -76,14 +76,15 @@ Other TODOs:
 - [ ] Continuous Deployment
 - [ ] LT25Async/Base Classes
 - [ ] Unit Testing
+- [ ] Complete Protocol
 - [ ] Other Amps
 
 ## 🛠️ Contributing
 
 > [!NOTE]
-> If you need to contribute in a way which updates protocol classes, you can find the original .proto files in Brent Maxwell's [repository](https://github.com/brentmaxwell/LtAmp/). I unfortunately cannot include these files in this module due to copy-left licensing restrictions.
+> If you need to contribute in a way which updates protocol classes, you can find the original .proto files in Brent Maxwell's [repository](https://github.com/brentmaxwell/LtAmp/). I unfortunately cannot include these files in this module due to copyleft licensing restrictions.
 
-lt25.py is licensed under the permissive MIT license, which means that you may fork, modify, adapt, and redistribute with few restrictions. However, if you wish to contribute your changes back to the base module, please open a pull request. To report bugs, request features, or discuss the project, open an issue or discussion!
+lt25.py is licensed under the permissive MIT license, which means that you may fork, modify, adapt, and redistribute with few restrictions. If you wish to contribute your changes back to the base module, please open a [pull request](/pulls). To report bugs, request features, or discuss the project, open an [issue](/issues) or [discussion](/discussions).
 
 ## 🙌 Acknowledgements 
 
