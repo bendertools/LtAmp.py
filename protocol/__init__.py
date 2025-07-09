@@ -25,8 +25,6 @@ from .ProcessorUtilizationRequest_pb2 import ProcessorUtilizationRequest
 from .LT4FootswitchModeRequest_pb2 import LT4FootswitchModeRequest
 from .UsbGainRequest_pb2 import UsbGainRequest
 
-
-
 def send_message(device, msg):
     """
     send (potentially multi-packet) protobuf message
@@ -78,6 +76,7 @@ def _msg(**kwargs):
 
 def request_qa_slots(device):
     """get current footswitch assignments"""
+    print('send msg')
     send_message(device, _msg(qASlotsRequest= QASlotsRequest(request=True)))
 
 def set_qa_slots(device, slots):

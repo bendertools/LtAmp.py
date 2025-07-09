@@ -25,7 +25,7 @@ pip install lt25
 
 ## 💾 Usage
 
-For full documentation of the LT25 class, refer to the [wiki](/wiki)
+For full documentation of the LT25 and LT25Async classes, refer to the [wiki](/wiki). 
 
 **Demonstration loop:**
 
@@ -73,8 +73,8 @@ Compatibility with LtAmp protocol:
 
 Other TODOs:
 - [x] Publish to Pypi
-- [ ] Continuous Deployment
-- [ ] LT25Async/Base Classes
+- [x] Continuous Deployment
+- [x] LT25Async/Base Classes
 - [ ] Unit Testing
 - [ ] Other Amps
 
