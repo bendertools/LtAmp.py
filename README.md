@@ -1,4 +1,4 @@
-# LTAmp.py
+# LtAmp.py
 
 [![PyPI Latest Release](https://img.shields.io/pypi/v/ltamp.svg)](https://pypi.org/project/ltamp/)
 [![wakatime](https://wakatime.com/badge/user/7482ea9d-3085-4e9b-95ad-1ca78a14d948/project/08632cd5-4928-49fb-8d0d-2d8f2bebbdad.svg)](https://wakatime.com/badge/user/7482ea9d-3085-4e9b-95ad-1ca78a14d948/project/08632cd5-4928-49fb-8d0d-2d8f2bebbdad)
@@ -87,7 +87,7 @@ Other TODOs:
 > [!NOTE]
 > If you need to contribute in a way which updates protocol classes, you can find the original .proto files in Brent Maxwell's [repository](https://github.com/brentmaxwell/LtAmp/). I unfortunately cannot include these files in this module due to copyleft licensing restrictions.
 
-LTAmp.py is licensed under the permissive MIT license, which means that you may fork, modify, adapt, and redistribute with few restrictions. If you wish to contribute your changes back to the base module, please open a [pull request](/pulls). To report bugs, request features, or discuss the project, open an [issue](/issues) or [discussion](/discussions).
+LtAmp.py is licensed under the permissive MIT license, which means that you may fork, modify, adapt, and redistribute with few restrictions. If you wish to contribute your changes back to the base module, please open a [pull request](/pulls). To report bugs, request features, or discuss the project, open an [issue](/issues) or [discussion](/discussions).
 
 ## 🙌 Acknowledgements
 
