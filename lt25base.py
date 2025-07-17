@@ -27,6 +27,7 @@ class LT25Base:
         self.stop_event = threading.Event()
         self.last_message = None
         self._input_thread = None
+        self._cs_event = threading.Event() # connection status
         self._fw_event = threading.Event() # firmware
         self._ps_event = threading.Event() # preset
         self._qa_event = threading.Event() # quick access
@@ -101,7 +102,10 @@ class LT25Base:
 
                     # print(msg)
 
-                    if msg.HasField("currentPresetStatus"):
+                    if msg.HasField("connectionStatus"):
+                        status = msg.connectionStatus.isConnected
+                        self._set_event(self._cs_event)
+                    elif msg.HasField("currentPresetStatus"):
                         preset_json = msg.currentPresetStatus.currentPresetData
                         preset_index = msg.currentPresetStatus.currentSlotIndex
                         self._last_preset = {"data": preset_json, "index": preset_index}

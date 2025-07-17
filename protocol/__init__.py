@@ -24,6 +24,7 @@ from .MemoryUsageRequest_pb2 import MemoryUsageRequest
 from .ProcessorUtilizationRequest_pb2 import ProcessorUtilizationRequest
 from .LT4FootswitchModeRequest_pb2 import LT4FootswitchModeRequest
 from .UsbGainRequest_pb2 import UsbGainRequest
+from .ConnectionStatusRequest_pb2 import ConnectionStatusRequest
 
 def send_message(device, msg):
     """
@@ -144,3 +145,5 @@ def send_sync_begin(device):
 def send_sync_end(device):
     send_message(device, _msg(modalStatusMessage=ModalStatusMessage(context=ModalContext.SYNC_END, state=ModalState.OK)))
 
+def request_connection_status(device):
+    send_message(device, _msg(connectionStatusRequest=ConnectionStatusRequest(request=True)))

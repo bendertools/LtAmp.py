@@ -20,6 +20,7 @@ class LT25(LT25Base):
 -        send_sync_begin()               send SYNC_BEGIN (start handshake)
 -        send_sync_end()                 send SYNC_END (end handshake)
 -        send_heartbeat()                periodic heartbeat (keep-alive)
+         request_connection_status()     request connection status (status event)
 -        request_firmware_version()      request firmware version from amp
 -        set_preset(idx)                 change preset slot
 -        request_current_preset()        ask amp for current preset (status event)
@@ -39,6 +40,15 @@ class LT25(LT25Base):
 -        device                          Current HID device connection
 -        hid_wrapper                     HID wrapper instance for backend operations
     """
+
+    def request_connection_status(self):
+        self._cs_event.clear()
+        request_connection_status(self.device)
+        if self._cs_event.wait(timeout=3.0):
+            return True
+        else:
+            return False
+
     def request_current_preset(self):
         self._last_preset = None
         self._ps_event.clear()

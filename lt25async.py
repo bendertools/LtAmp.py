@@ -21,6 +21,7 @@ class LT25Async(LT25Base):
 -        send_sync_begin()               send SYNC_BEGIN (start handshake)
 -        send_sync_end()                 send SYNC_END (end handshake)
 -        send_heartbeat()                periodic heartbeat (keep-alive)
+         request_connection_status()     request connection status (status event)
 -        request_firmware_version()      request firmware version from amp
 -        set_preset(idx)                 change preset slot
 -        request_current_preset()        ask amp for current preset (status event)
@@ -40,9 +41,11 @@ class LT25Async(LT25Base):
 -        device                          Current HID device connection
 -        hid_wrapper                     HID wrapper instance for backend operations
     """
+
     def __init__(self):
         super().__init__()
         self.loop = asyncio.get_event_loop()
+        self._cs_event = asyncio.Event() # connection status
         self._fw_event = asyncio.Event() # firmware
         self._ps_event = asyncio.Event() # preset
         self._qa_event = asyncio.Event() # quick access
@@ -59,6 +62,15 @@ class LT25Async(LT25Base):
     async def disconnect(self):
         loop = asyncio.get_event_loop()
         await loop.run_in_executor(None, super().disconnect)
+
+    async def request_connection_status(self):
+        self._cs_event.clear()
+        request_connection_status(self.device)
+        try:
+            await asyncio.wait_for(self._cs_event.wait(), timeout=2.0)
+            return True
+        except asyncio.TimeoutError:
+           return False 
 
     async def request_current_preset(self):
         self._last_preset = None
