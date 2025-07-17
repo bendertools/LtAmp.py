@@ -2,7 +2,7 @@ import os
 import sys
 import asyncio
 
-from .lt25base import LT25Base
+from .ltAmpBase import LtAmpBase
 
 # protobuf imports
 protocol_path = os.path.join(os.path.dirname(__file__), 'protocol')
@@ -11,12 +11,12 @@ if protocol_path not in sys.path:
 
 from .protocol import *
 
-class LT25Async(LT25Base):
+class LtAmpAsync(LtAmpBase):
     """
-    async version of LT25 controller using asyncio
+    async version of LtAmp controller using asyncio
 
     Methods:
--        connect()                       connects to the amp (finds first matching device)
+-        connect()                       connects to the amp (first matching device)
 -        disconnect()                    disconnect and clean up
 -        send_sync_begin()               send SYNC_BEGIN (start handshake)
 -        send_sync_end()                 send SYNC_END (end handshake)
@@ -32,9 +32,10 @@ class LT25Async(LT25Base):
 -        request_audition_state()        get current audition state (status event)
 -        request_memory_usage()          get memory usage
 -        request_processor_utilization() get processor utilization
--        request_footswitch_mode()       get current footswitch mode
+-        request_footswitch_mode()       get current footswitch mode (lt4 only!)
 -        set_usb_gain(gain)              set USB gain (0-100)
 -        request_usb_gain()              get current USB gain setting
+         request_product_id()            get product ID
 -
 -    Data:
 -        last_message                    Last parsed message
@@ -143,3 +144,12 @@ class LT25Async(LT25Base):
         except asyncio.TimeoutError:
             raise TimeoutError("No usb gain state response received.")
 
+    async def request_product_id(self):
+        self._last_product_id = None
+        self._pid_event.clear()
+        request_product_id(self.device)
+        try:
+            await asyncio.wait_for(self._pid_event.wait(), timeout=2.0)
+            return self._last_product_id
+        except asyncio.TimeoutError:
+            raise TimeoutError("No product ID response received.")

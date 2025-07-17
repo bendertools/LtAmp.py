@@ -16,9 +16,9 @@ from .protocol import *
 VENDOR_ID = 0x1ed8
 PRODUCT_ID = 0x0037
 
-class LT25Base:
+class LtAmpBase:
     """
-    base class for Fender Mustang LT25 communication
+    base class for LT amplifier communication
     """
     def __init__(self):
         self.hid_wrapper = HIDWrapper()
@@ -36,6 +36,7 @@ class LT25Base:
         self._pu_event = threading.Event() # processor
         self._ftsw_event = threading.Event() # footswitch
         self._gain_event = threading.Event() # usb gain
+        self._pid_event = threading.Event() # product ID
 
     def _set_event(self, event):
         if hasattr(self, 'loop') and self.loop is not None:
@@ -52,7 +53,7 @@ class LT25Base:
     def connect(self):
         amp_info = self.find_amp()
         if not amp_info:
-            raise RuntimeError("Fender LT25 not found")
+            raise RuntimeError("LT amp not found")
         self.device = self.hid_wrapper.open_device(amp_info)
         self.device.set_input_callback(self._process_input_data)
         if self.hid_wrapper.backend == "hidapi":
@@ -142,6 +143,10 @@ class LT25Base:
                             "maxPercent": utilization.maxPercent
                         }
                         self._set_event(self._pu_event)
+                    elif msg.HasField("productIdentificationStatus"):
+                        pid = msg.productIdentificationStatus.id
+                        self._last_product_id = pid
+                        self._set_event(self._pid_event)
                 except Exception:
                     pass
                 self.msg_buffer = bytearray()

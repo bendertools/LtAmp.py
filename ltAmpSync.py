@@ -1,7 +1,7 @@
 import os
 import sys
 
-from .lt25base import LT25Base
+from .ltAmpBase import LtAmpBase
 
 # protobuf imports
 protocol_path = os.path.join(os.path.dirname(__file__), 'protocol')
@@ -10,12 +10,12 @@ if protocol_path not in sys.path:
 
 from .protocol import *
 
-class LT25(LT25Base):
+class LtAmp(LtAmpBase):
     """
-    synchronous version of LT25 controller
+    synchronous version of LT amp controller
 
     Methods:
--        connect()                       connects to the amp (finds first matching device)
+-        connect()                       connects to the amp (first matching device)
 -        disconnect()                    disconnect and clean up
 -        send_sync_begin()               send SYNC_BEGIN (start handshake)
 -        send_sync_end()                 send SYNC_END (end handshake)
@@ -31,9 +31,10 @@ class LT25(LT25Base):
 -        request_audition_state()        get current audition state (status event)
 -        request_memory_usage()          get memory usage
 -        request_processor_utilization() get processor utilization
--        request_footswitch_mode()       get current footswitch mode
+-        request_footswitch_mode()       get current footswitch mode (lt4 only!)
 -        set_usb_gain(gain)              set USB gain (0-100)
 -        request_usb_gain()              get current USB gain setting
+-        request_product_id()            get product ID
 -
 -    Data:
 -        last_message                    Last parsed message
@@ -112,3 +113,21 @@ class LT25(LT25Base):
             return self._last_gain_state
         else:
             raise TimeoutError("No usb gain state response received.")
+
+    def request_footswitch_mode(self):
+        self._last_ftsw_state = None
+        self._ftsw_event.clear()
+        request_footswitch_mode(self.device)
+        if self._ftsw_event.wait(timeout=2.0):
+            return self._last_ftsw_state
+        else:
+            raise TimeoutError("No footswitch mode response received. (Maybe not on an LT4?)")
+
+    def request_product_id(self):
+        self._last_product_id = None
+        self._pid_event.clear()
+        request_product_id(self.device)
+        if self._pid_event.wait(timeout=2.0):
+            return self._last_product_id
+        else:
+            raise TimeoutError("No product ID response received.")

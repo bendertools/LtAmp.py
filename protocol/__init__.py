@@ -1,5 +1,5 @@
 """
-protocol actions for LT25 USB control.
+protocol actions for LT amp USB control.
 
 covers QA, firmware, preset status, auditioning,
 memory, footswitch status, USB gain.
@@ -25,6 +25,8 @@ from .ProcessorUtilizationRequest_pb2 import ProcessorUtilizationRequest
 from .LT4FootswitchModeRequest_pb2 import LT4FootswitchModeRequest
 from .UsbGainRequest_pb2 import UsbGainRequest
 from .ConnectionStatusRequest_pb2 import ConnectionStatusRequest
+from .LT4FootswitchModeRequest_pb2 import LT4FootswitchModeRequest
+from .ProductIdentificationRequest_pb2 import ProductIdentificationRequest
 
 def send_message(device, msg):
     """
@@ -62,7 +64,7 @@ def send_message(device, msg):
 
 
 def _msg(**kwargs):
-    """construct a FenderMessageLT with given fields"""
+    """construct a message with given fields"""
     msg = FenderMessageLT()
     msg.responseType = ResponseType.UNSOLICITED
     for k, v in kwargs.items():
@@ -77,7 +79,6 @@ def _msg(**kwargs):
 
 def request_qa_slots(device):
     """get current footswitch assignments"""
-    print('send msg')
     send_message(device, _msg(qASlotsRequest= QASlotsRequest(request=True)))
 
 def set_qa_slots(device, slots):
@@ -147,3 +148,8 @@ def send_sync_end(device):
 
 def request_connection_status(device):
     send_message(device, _msg(connectionStatusRequest=ConnectionStatusRequest(request=True)))
+
+# --- product id ---
+
+def request_product_id(device):
+    send_message(device, _msg(productIdentificationRequest=ProductIdentificationRequest(request=True)))
