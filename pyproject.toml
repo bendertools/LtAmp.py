@@ -1,6 +1,6 @@
 [project]
 name = "lt25"
-version = "0.1.2"
+version = "0.1.3"
 description = "🎸 Cross-platform python interface for LT25 guitar amplifier"
 readme = "README.md"
 license = {text = "MIT"}
