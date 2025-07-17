@@ -4,7 +4,7 @@ import platform
 import sys
 import os
 
-from .hidwrapper import HIDWrapper, HIDDevice, HIDBackendNotFound
+from .hidWrapper import HIDWrapper, HIDDevice, HIDBackendNotFound
 
 # protobuf imports
 protocol_path = os.path.join(os.path.dirname(__file__), 'protocol')

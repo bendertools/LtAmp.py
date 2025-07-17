@@ -1,6 +1,6 @@
 import platform
 
-from .hiddevice import HIDDevice
+from .hidDevice import HIDDevice
 
 class HIDBackendNotFound(Exception):
     pass

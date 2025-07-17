@@ -1,4 +1,4 @@
-from .hidwrapper import HIDWrapper, HIDDevice, HIDBackendNotFound
+from .hidWrapper import HIDWrapper, HIDDevice, HIDBackendNotFound
 from .ltAmpSync import LtAmp
 from .ltAmpAsync import LtAmpAsync
 
