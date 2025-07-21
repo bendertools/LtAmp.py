@@ -34,6 +34,7 @@ def send_message(device, msg):
     """
     payload = msg.SerializeToString()
     max_chunk = 61 # max payload per packet
+    num_chunks = 1
 
     if len(payload) <= max_chunk:
         # single packet
@@ -62,6 +63,9 @@ def send_message(device, msg):
                 packet.extend([0x00] * (64 - len(packet)))
             device.write(packet)
 
+    if device.debug:
+         print("====== DEBUG =====")
+         print(f"Sent {len(payload)} bytes in {num_chunks} packets")    
 
 def _msg(**kwargs):
     """construct a message with given fields"""

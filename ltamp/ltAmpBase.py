@@ -20,8 +20,9 @@ class LtAmpBase:
     """
     base class for LT amplifier communication
     """
-    def __init__(self):
-        self.hid_wrapper = HIDWrapper()
+    def __init__(self, debug=False):
+        self.debug = debug
+        self.hid_wrapper = HIDWrapper(self.debug)
         self.device = None
         self.msg_buffer = bytearray()
         self.stop_event = threading.Event()
@@ -101,7 +102,8 @@ class LtAmpBase:
                     msg = FenderMessageLT()
                     msg.ParseFromString(self.msg_buffer)
 
-                    # print(msg)
+                    if self.debug:
+                        print("====== DEBUG =====\r\n", msg)
 
                     if msg.HasField("connectionStatus"):
                         status = msg.connectionStatus.isConnected

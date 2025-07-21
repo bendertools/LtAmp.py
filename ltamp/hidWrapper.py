@@ -8,9 +8,10 @@ class HIDBackendNotFound(Exception):
 class HIDWrapper:
     """unified HID interface that works across platforms"""
     
-    def __init__(self):
+    def __init__(self, debug=False):
         self.backend = None
         self.hid_lib = None
+        self.debug = False
         self._setup_hid_library()
     
     def _setup_hid_library(self):
@@ -52,7 +53,7 @@ class HIDWrapper:
         if self.backend == "hidapi":
             device = self.hid_lib.device()
             device.open_path(device_info['path'])
-            return HIDDevice(device, self.backend)
+            return HIDDevice(device, self.backend, debug=self.debug)
         elif self.backend == "pywinusb":
             device_info.open()
-            return HIDDevice(device_info, self.backend)
+            return HIDDevice(device_info, self.backend, debug=self.debug)

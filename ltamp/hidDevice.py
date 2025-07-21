@@ -1,9 +1,10 @@
 class HIDDevice:
     """unified HID device interface"""
     
-    def __init__(self, device, backend):
+    def __init__(self, device, backend, debug=False):
         self.device = device
         self.backend = backend
+        self.debug = debug
         self.input_callback = None
 
     def write(self, data):
