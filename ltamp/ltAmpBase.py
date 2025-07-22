@@ -4,7 +4,7 @@ import platform
 import sys
 import os
 
-from .hidWrapper import HIDWrapper, HIDDevice, HIDBackendNotFound
+from .hidWrapper import HIDWrapper, HIDDevice
 
 # protobuf imports
 protocol_path = os.path.join(os.path.dirname(__file__), 'protocol')
@@ -20,14 +20,13 @@ class LtAmpBase:
     """
     base class for LT amplifier communication
     """
-    def __init__(self, debug=False):
+    def __init__(self, debug=False, timeout=2.0):
         self.debug = debug
+        self.timeout = timeout
         self.hid_wrapper = HIDWrapper(self.debug)
         self.device = None
-        self.msg_buffer = bytearray()
-        self.stop_event = threading.Event()
-        self.last_message = None
-        self._input_thread = None
+        self._msg_buffer = bytearray()
+        self._stop_event = threading.Event()
         self._cs_event = threading.Event() # connection status
         self._fw_event = threading.Event() # firmware
         self._ps_event = threading.Event() # preset
@@ -63,12 +62,12 @@ class LtAmpBase:
         return True
 
     def disconnect(self):
-        self.stop_event.set()
+        self._stop_event.set()
         if self.device:
             self.device.close()
 
     def _input_thread_proc(self):
-        while not self.stop_event.is_set():
+        while not self._stop_event.is_set():
             try:
                 data = self.device.read(64, 100)
                 if data and any(b != 0 for b in data):
@@ -93,14 +92,14 @@ class LtAmpBase:
                 length = data_list[3]
                 value = data_list[4:4 + length] 
             if tag == 0x33:
-                self.msg_buffer = bytearray(value)
+                self._msg_buffer = bytearray(value)
             elif tag == 0x34:
-                self.msg_buffer += bytearray(value)
+                self._msg_buffer += bytearray(value)
             elif tag == 0x35:
-                self.msg_buffer += bytearray(value)
+                self._msg_buffer += bytearray(value)
                 try:
                     msg = FenderMessageLT()
-                    msg.ParseFromString(self.msg_buffer)
+                    msg.ParseFromString(self._msg_buffer)
 
                     if self.debug:
                         print("====== DEBUG =====\r\n", msg)
@@ -151,7 +150,7 @@ class LtAmpBase:
                         self._set_event(self._pid_event)
                 except Exception:
                     pass
-                self.msg_buffer = bytearray()
+                self._msg_buffer = bytearray()
         except Exception as e:
             import traceback
             tb = traceback.format_exc()

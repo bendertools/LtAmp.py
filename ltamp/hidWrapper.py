@@ -2,9 +2,6 @@ import platform
 
 from .hidDevice import HIDDevice
 
-class HIDBackendNotFound(Exception):
-    pass
-
 class HIDWrapper:
     """unified HID interface that works across platforms"""
     

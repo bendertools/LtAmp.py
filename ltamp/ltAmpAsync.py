@@ -38,7 +38,6 @@ class LtAmpAsync(LtAmpBase):
          request_product_id()            get product ID
 -
 -    Data:
--        last_message                    Last parsed message
 -        device                          Current HID device connection
 -        hid_wrapper                     HID wrapper instance for backend operations
     """
@@ -68,7 +67,7 @@ class LtAmpAsync(LtAmpBase):
         self._cs_event.clear()
         request_connection_status(self.device)
         try:
-            await asyncio.wait_for(self._cs_event.wait(), timeout=2.0)
+            await asyncio.wait_for(self._cs_event.wait(), timeout=self.timeout)
             return True
         except asyncio.TimeoutError:
            return False 
@@ -78,7 +77,7 @@ class LtAmpAsync(LtAmpBase):
         self._ps_event.clear()
         request_current_preset(self.device)
         try:
-            await asyncio.wait_for(self._ps_event.wait(), timeout=2.0)
+            await asyncio.wait_for(self._ps_event.wait(), timeout=self.timeout)
             return self._last_preset
         except asyncio.TimeoutError:
             raise TimeoutError("No current preset response received.")
@@ -89,7 +88,7 @@ class LtAmpAsync(LtAmpBase):
         from .protocol import request_firmware_version
         request_firmware_version(self.device)
         try:
-            await asyncio.wait_for(self._fw_event.wait(), timeout=2.0)
+            await asyncio.wait_for(self._fw_event.wait(), timeout=self.timeout)
             return self._last_firmware_version
         except asyncio.TimeoutError:
             raise TimeoutError("No firmware version response received.")
@@ -99,7 +98,7 @@ class LtAmpAsync(LtAmpBase):
         self._qa_event.clear()
         request_qa_slots(self.device)
         try:
-            await asyncio.wait_for(self._qa_event.wait(), timeout=10.0)
+            await asyncio.wait_for(self._qa_event.wait(), timeout=self.timeout)
             return self._last_qa_slots
         except asyncio.TimeoutError:
             raise TimeoutError("No QA slots response received.")
@@ -109,7 +108,7 @@ class LtAmpAsync(LtAmpBase):
         self._aud_event.clear()
         request_audition_state(self.device)
         try:
-            await asyncio.wait_for(self._aud_event.wait(), timeout=2.0)
+            await asyncio.wait_for(self._aud_event.wait(), timeout=self.timeout)
             return self._last_audition_state
         except asyncio.TimeoutError:
             raise TimeoutError("No audition state response received.") 
@@ -119,7 +118,7 @@ class LtAmpAsync(LtAmpBase):
         self._mem_event.clear()
         request_memory_usage(self.device)
         try:
-            await asyncio.wait_for(self._mem_event.wait(), timeout=2.0)
+            await asyncio.wait_for(self._mem_event.wait(), timeout=self.timeout)
             return self._last_memory_state
         except asyncio.TimeoutError:
             raise TimeoutError("No memory state response received.")
@@ -129,7 +128,7 @@ class LtAmpAsync(LtAmpBase):
         self._pu_event.clear()
         request_processor_utilization(self.device)
         try:
-            await asyncio.wait_for(self._pu_event.wait(), timeout=2.0)
+            await asyncio.wait_for(self._pu_event.wait(), timeout=self.timeout)
             return self._last_processor_utilization
         except asyncio.TimeoutError:
             raise TimeoutError("No processor utilization response received.")
@@ -139,7 +138,7 @@ class LtAmpAsync(LtAmpBase):
         self._gain_event.clear()
         request_usb_gain(self.device)
         try:
-            await asyncio.wait_for(self._gain_event.wait(), timeout=2.0)
+            await asyncio.wait_for(self._gain_event.wait(), timeout=self.timeout)
             return self._last_gain_state
         except asyncio.TimeoutError:
             raise TimeoutError("No usb gain state response received.")
@@ -149,7 +148,7 @@ class LtAmpAsync(LtAmpBase):
         self._pid_event.clear()
         request_product_id(self.device)
         try:
-            await asyncio.wait_for(self._pid_event.wait(), timeout=2.0)
+            await asyncio.wait_for(self._pid_event.wait(), timeout=self.timeout)
             return self._last_product_id
         except asyncio.TimeoutError:
             raise TimeoutError("No product ID response received.")

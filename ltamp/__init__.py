@@ -1,7 +1,7 @@
-from .hidWrapper import HIDWrapper, HIDDevice, HIDBackendNotFound
+from .hidWrapper import HIDWrapper, HIDDevice
 from .ltAmpSync import LtAmp
 from .ltAmpAsync import LtAmpAsync
 
 __all__ = [
-    'LtAmp', 'LtAmpAsync', 'HIDBackendNotFound', 'HIDWrapper', 'HIDDevice'
+    'LtAmp', 'LtAmpAsync', 'HIDWrapper', 'HIDDevice'
 ]

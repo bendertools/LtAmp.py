@@ -18,6 +18,9 @@ This package requires Python 3.8+ to be installed on your system (due to demands
 
 ```
 pip install ltamp
+python
+>>> from ltamp import LtAmp
+>>> LtAmp().connect()
 ```
 
 > [!IMPORTANT]
@@ -28,9 +31,6 @@ pip install ltamp
 For full documentation of the LtAmp and LtAmpAsync classes, refer to the [wiki](/wiki).
 
 **Demonstration loop:**
-
-> [!WARNING]
-> On some linux distros, `sudo`-mode is required for running python files which interact with USB devices.
 
 ```python
 import time
@@ -49,6 +49,9 @@ for i in range(5):
     time.sleep(1)
 amp.disconnect()
 ```
+
+> [!WARNING]
+> On some linux distros, `sudo`-mode is required for running python files which interact with USB devices.
 
 ## 🗺️ Roadmap
 
@@ -76,11 +79,21 @@ Other TODOs:
 - [x] Publish to Pypi
 - [x] Continuous Deployment
 - [x] LtAmpAsync/Base Classes
+- [x] Document classes in Wiki
 - [ ] Unit Testing
-- [ ] Customize timeout
+- [x] Customize timeout
 - [ ] Complete Protocol
 - [x] Other LT Amps
-- [ ] Multiple Amps
+- [ ] Multiple Connected Devices
+
+Fully-tested LT-series amps:
+
+- [x] LT25
+- [ ] LT40S
+- [ ] LT50
+- [ ] LTX100?
+- [ ] LTX50?
+- [ ] R15-R100?
 
 ## 🛠️ Contributing
 

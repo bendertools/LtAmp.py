@@ -37,7 +37,6 @@ class LtAmp(LtAmpBase):
 -        request_product_id()            get product ID
 -
 -    Data:
--        last_message                    Last parsed message
 -        device                          Current HID device connection
 -        hid_wrapper                     HID wrapper instance for backend operations
     """
@@ -45,7 +44,7 @@ class LtAmp(LtAmpBase):
     def request_connection_status(self):
         self._cs_event.clear()
         request_connection_status(self.device)
-        if self._cs_event.wait(timeout=3.0):
+        if self._cs_event.wait(timeout=self.timeout):
             return True
         else:
             return False
@@ -54,7 +53,7 @@ class LtAmp(LtAmpBase):
         self._last_preset = None
         self._ps_event.clear()
         request_current_preset(self.device)
-        if self._ps_event.wait(timeout=2.0):
+        if self._ps_event.wait(timeout=self.timeout):
             return self._last_preset
         else:
             raise TimeoutError("No current preset response received.")
@@ -64,7 +63,7 @@ class LtAmp(LtAmpBase):
         self._fw_event.clear()
         from .protocol import request_firmware_version
         request_firmware_version(self.device)
-        if self._fw_event.wait(timeout=2.0):
+        if self._fw_event.wait(timeout=self.timeout):
             return self._last_firmware_version
         else:
             raise TimeoutError("No firmware version response received.")
@@ -73,7 +72,7 @@ class LtAmp(LtAmpBase):
         self._last_qa_slots = None
         self._qa_event.clear()
         request_qa_slots(self.device)
-        if self._qa_event.wait(timeout=5.0):
+        if self._qa_event.wait(timeout=self.timeout):
             return self._last_qa_slots
         else:
             raise TimeoutError("No QA slots response received.")
@@ -82,7 +81,7 @@ class LtAmp(LtAmpBase):
         self._last_audition_state = None
         self._aud_event.clear()
         request_audition_state(self.device)
-        if self._aud_event.wait(timeout=2.0):
+        if self._aud_event.wait(timeout=self.timeout):
             return self._last_audition_state
         else:
             raise TimeoutError("No audition state response received.") 
@@ -91,7 +90,7 @@ class LtAmp(LtAmpBase):
         self._last_memory_state = None
         self._mem_event.clear()
         request_memory_usage(self.device)
-        if self._mem_event.wait(timeout=2.0):
+        if self._mem_event.wait(timeout=self.timeout):
             return self._last_memory_state
         else:
             raise TimeoutError("No memory state response received.")
@@ -100,7 +99,7 @@ class LtAmp(LtAmpBase):
         self._last_processor_utilization = None
         self._pu_event.clear()
         request_processor_utilization(self.device)
-        if self._pu_event.wait(timeout=2.0):
+        if self._pu_event.wait(timeout=self.timeout):
             return self._last_processor_utilization
         else:
             raise TimeoutError("No processor utilization response received.")
@@ -109,7 +108,7 @@ class LtAmp(LtAmpBase):
         self._last_gain_state = None
         self._gain_event.clear()
         request_usb_gain(self.device)
-        if self._gain_event.wait(timeout=2.0):
+        if self._gain_event.wait(timeout=self.timeout):
             return self._last_gain_state
         else:
             raise TimeoutError("No usb gain state response received.")
@@ -118,7 +117,7 @@ class LtAmp(LtAmpBase):
         self._last_ftsw_state = None
         self._ftsw_event.clear()
         request_footswitch_mode(self.device)
-        if self._ftsw_event.wait(timeout=2.0):
+        if self._ftsw_event.wait(timeout=self.timeout):
             return self._last_ftsw_state
         else:
             raise TimeoutError("No footswitch mode response received. (Maybe not on an LT4?)")
@@ -127,7 +126,7 @@ class LtAmp(LtAmpBase):
         self._last_product_id = None
         self._pid_event.clear()
         request_product_id(self.device)
-        if self._pid_event.wait(timeout=2.0):
+        if self._pid_event.wait(timeout=self.timeout):
             return self._last_product_id
         else:
             raise TimeoutError("No product ID response received.")

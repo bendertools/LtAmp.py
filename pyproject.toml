@@ -1,6 +1,6 @@
 [project]
 name = "ltamp"
-version = "0.2.4"
+version = "0.2.5"
 description = "🎸 Cross-platform python interface for LT guitar/bass amplifiers"
 readme = "README.md"
 license = {text = "MIT"}
