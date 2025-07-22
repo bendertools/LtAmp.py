@@ -80,7 +80,7 @@ class LtAmpAsync(LtAmpBase):
             await asyncio.wait_for(self._ps_event.wait(), timeout=self.timeout)
             return self._last_preset
         except asyncio.TimeoutError:
-            raise TimeoutError("No current preset response received.")
+            raise TimeoutError("No current preset response received within timeout window.")
 
     async def request_firmware_version(self):
         self._last_firmware_version = None
@@ -91,7 +91,7 @@ class LtAmpAsync(LtAmpBase):
             await asyncio.wait_for(self._fw_event.wait(), timeout=self.timeout)
             return self._last_firmware_version
         except asyncio.TimeoutError:
-            raise TimeoutError("No firmware version response received.")
+            raise TimeoutError("No firmware version response received within timeout window.")
 
     async def request_qa_slots(self):
         self._last_qa_slots = None
@@ -101,7 +101,7 @@ class LtAmpAsync(LtAmpBase):
             await asyncio.wait_for(self._qa_event.wait(), timeout=self.timeout)
             return self._last_qa_slots
         except asyncio.TimeoutError:
-            raise TimeoutError("No QA slots response received.")
+            raise TimeoutError("No QA slots response received within timeout window.")
 
     async def request_audition_state(self):
         self._last_audition_state = None
@@ -111,7 +111,7 @@ class LtAmpAsync(LtAmpBase):
             await asyncio.wait_for(self._aud_event.wait(), timeout=self.timeout)
             return self._last_audition_state
         except asyncio.TimeoutError:
-            raise TimeoutError("No audition state response received.") 
+            raise TimeoutError("No audition state response received within timeout window.") 
 
     async def request_memory_usage(self):
         self._last_memory_state = None
@@ -121,7 +121,7 @@ class LtAmpAsync(LtAmpBase):
             await asyncio.wait_for(self._mem_event.wait(), timeout=self.timeout)
             return self._last_memory_state
         except asyncio.TimeoutError:
-            raise TimeoutError("No memory state response received.")
+            raise TimeoutError("No memory state response received within timeout window.")
 
     async def request_processor_utilization(self):
         self._last_processor_utilization = None
@@ -131,7 +131,7 @@ class LtAmpAsync(LtAmpBase):
             await asyncio.wait_for(self._pu_event.wait(), timeout=self.timeout)
             return self._last_processor_utilization
         except asyncio.TimeoutError:
-            raise TimeoutError("No processor utilization response received.")
+            raise TimeoutError("No processor utilization response received within timeout window.")
 
     async def request_usb_gain(self):
         self._last_gain_state = None
@@ -141,7 +141,7 @@ class LtAmpAsync(LtAmpBase):
             await asyncio.wait_for(self._gain_event.wait(), timeout=self.timeout)
             return self._last_gain_state
         except asyncio.TimeoutError:
-            raise TimeoutError("No usb gain state response received.")
+            raise TimeoutError("No usb gain state response received within timeout window.")
 
     async def request_product_id(self):
         self._last_product_id = None
@@ -151,4 +151,4 @@ class LtAmpAsync(LtAmpBase):
             await asyncio.wait_for(self._pid_event.wait(), timeout=self.timeout)
             return self._last_product_id
         except asyncio.TimeoutError:
-            raise TimeoutError("No product ID response received.")
+            raise TimeoutError("No product ID response received within timeout window.")

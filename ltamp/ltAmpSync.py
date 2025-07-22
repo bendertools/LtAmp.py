@@ -56,7 +56,7 @@ class LtAmp(LtAmpBase):
         if self._ps_event.wait(timeout=self.timeout):
             return self._last_preset
         else:
-            raise TimeoutError("No current preset response received.")
+            raise TimeoutError("No current preset response received within timeout window.")
 
     def request_firmware_version(self):
         self._last_firmware_version = None
@@ -66,7 +66,7 @@ class LtAmp(LtAmpBase):
         if self._fw_event.wait(timeout=self.timeout):
             return self._last_firmware_version
         else:
-            raise TimeoutError("No firmware version response received.")
+            raise TimeoutError("No firmware version response received within timeout window.")
 
     def request_qa_slots(self):
         self._last_qa_slots = None
@@ -75,7 +75,7 @@ class LtAmp(LtAmpBase):
         if self._qa_event.wait(timeout=self.timeout):
             return self._last_qa_slots
         else:
-            raise TimeoutError("No QA slots response received.")
+            raise TimeoutError("No QA slots response received within timeout window.")
 
     def request_audition_state(self):
         self._last_audition_state = None
@@ -84,7 +84,7 @@ class LtAmp(LtAmpBase):
         if self._aud_event.wait(timeout=self.timeout):
             return self._last_audition_state
         else:
-            raise TimeoutError("No audition state response received.") 
+            raise TimeoutError("No audition state response received within timeout window.") 
 
     def request_memory_usage(self):
         self._last_memory_state = None
@@ -93,7 +93,7 @@ class LtAmp(LtAmpBase):
         if self._mem_event.wait(timeout=self.timeout):
             return self._last_memory_state
         else:
-            raise TimeoutError("No memory state response received.")
+            raise TimeoutError("No memory state response received within timeout window.")
 
     def request_processor_utilization(self):
         self._last_processor_utilization = None
@@ -102,7 +102,7 @@ class LtAmp(LtAmpBase):
         if self._pu_event.wait(timeout=self.timeout):
             return self._last_processor_utilization
         else:
-            raise TimeoutError("No processor utilization response received.")
+            raise TimeoutError("No processor utilization response received within timeout window.")
 
     def request_usb_gain(self):
         self._last_gain_state = None
@@ -111,7 +111,7 @@ class LtAmp(LtAmpBase):
         if self._gain_event.wait(timeout=self.timeout):
             return self._last_gain_state
         else:
-            raise TimeoutError("No usb gain state response received.")
+            raise TimeoutError("No usb gain state response received within timeout window.")
 
     def request_footswitch_mode(self):
         self._last_ftsw_state = None
@@ -120,7 +120,7 @@ class LtAmp(LtAmpBase):
         if self._ftsw_event.wait(timeout=self.timeout):
             return self._last_ftsw_state
         else:
-            raise TimeoutError("No footswitch mode response received. (Maybe not on an LT4?)")
+            raise TimeoutError("No footswitch mode response received within timeout window. (Maybe not an LT4?)")
 
     def request_product_id(self):
         self._last_product_id = None
@@ -129,4 +129,4 @@ class LtAmp(LtAmpBase):
         if self._pid_event.wait(timeout=self.timeout):
             return self._last_product_id
         else:
-            raise TimeoutError("No product ID response received.")
+            raise TimeoutError("No product ID response received within timeout window.")
