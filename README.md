@@ -6,6 +6,9 @@
 
 🎸 A cross-platform Python module for interacting with the LT amplifiers from a certain guitar company that rhymes with "bender" and names products after horses.
 
+> [!NOTE]
+> At the moment, only LT25 amps are fully tested and have been tested/verified for protocol support.
+
 ## 👋 Introduction
 
 I made this libray because I was disappointed by the lack of certain features in both my amp itself as well as the associated desktop app provided by its manufacturer. Failing to find a starting point which used modern languages/technologies I could build upon (.NET doesnt count), I developed this little module based on the reverse-engineering work others initiated.
