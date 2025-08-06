@@ -63,6 +63,7 @@ Compatibility with LtAmp protocol:
 - [ ] Audio Status
 - [x] Audition Preset (status, start, exit)
 - [ ] Clear/rename/shift/swap/save (to/as) preset
+- [x] Retrieve preset
 - [x] Connection Status
 - [x] Current Preset (request/load)
 - [ ] DSP Unit Parameter
@@ -104,6 +105,14 @@ Fully-tested LT-series amps:
 > If you need to contribute in a way which updates protocol classes, you can find the original .proto files in Brent Maxwell's [repository](https://github.com/brentmaxwell/LtAmp/). I unfortunately cannot include these files in this module due to copyleft licensing restrictions.
 
 LtAmp.py is licensed under the permissive MIT license, which means that you may fork, modify, adapt, and redistribute with few restrictions. If you wish to contribute your changes back to the base module, please open a [pull request](/pulls). To report bugs, request features, or discuss the project, open an [issue](/issues) or [discussion](/discussions).
+
+### 🧪 Testing
+
+To run unit tests, use the command:
+
+```bash
+python -m unittest discover tests
+```
 
 ## 🙌 Acknowledgements
 
