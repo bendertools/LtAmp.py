@@ -27,6 +27,7 @@ from .UsbGainRequest_pb2 import UsbGainRequest
 from .ConnectionStatusRequest_pb2 import ConnectionStatusRequest
 from .LT4FootswitchModeRequest_pb2 import LT4FootswitchModeRequest
 from .ProductIdentificationRequest_pb2 import ProductIdentificationRequest
+from .RetrievePreset_pb2 import RetrievePreset
 
 def send_message(device, msg):
     """
@@ -101,6 +102,9 @@ def request_current_preset(device):
 
 def set_preset(device, preset_index):
     send_message(device, _msg(loadPreset=LoadPreset(presetIndex=preset_index)))
+
+def retrieve_preset(device, preset_index):
+    send_message(device, _msg(retrievePreset=RetrievePreset(slot=preset_index)))
 
 # --- auditioning ---
 

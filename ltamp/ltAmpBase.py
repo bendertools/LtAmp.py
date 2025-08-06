@@ -29,6 +29,7 @@ class LtAmpBase:
         self._stop_event = threading.Event()
         self._cs_event = threading.Event() # connection status
         self._fw_event = threading.Event() # firmware
+        self._cps_event = threading.Event() # current preset
         self._ps_event = threading.Event() # preset
         self._qa_event = threading.Event() # quick access
         self._aud_event = threading.Event() # audition
@@ -111,6 +112,11 @@ class LtAmpBase:
                         preset_json = msg.currentPresetStatus.currentPresetData
                         preset_index = msg.currentPresetStatus.currentSlotIndex
                         self._last_preset = {"data": preset_json, "index": preset_index}
+                        self._set_event(self._cps_event)
+                    elif msg.HasField("presetJSONMessage"):
+                        preset_json = msg.presetJSONMessage.data
+                        preset_index = msg.presetJSONMessage.slotIndex
+                        self._last_preset_json = {"data": preset_json, "index": preset_index}
                         self._set_event(self._ps_event)
                     elif msg.HasField("firmwareVersionStatus"):
                         version = msg.firmwareVersionStatus.version

@@ -23,7 +23,9 @@ class LtAmp(LtAmpBase):
          request_connection_status()     request connection status (status event)
 -        request_firmware_version()      request firmware version from amp
 -        set_preset(idx)                 change preset slot
+         retrieve_preset(idx)            retrieve preset from amp (status event)
 -        request_current_preset()        ask amp for current preset (status event)
+         retrieve_preset(idx)               retrieve preset from amp (status event)
 -        set_qa_slots(idx[])             set QA slots (footswitch assignments)
 -        request_qa_slots()              request QA slots from amp (status event)
 -        audition_preset(preset_json)    audition a preset
@@ -51,12 +53,21 @@ class LtAmp(LtAmpBase):
 
     def request_current_preset(self):
         self._last_preset = None
-        self._ps_event.clear()
+        self._cps_event.clear()
         request_current_preset(self.device)
-        if self._ps_event.wait(timeout=self.timeout):
+        if self._cps_event.wait(timeout=self.timeout):
             return self._last_preset
         else:
             raise TimeoutError("No current preset response received within timeout window.")
+
+    def retrieve_preset(self, idx):
+        self._last_preset_json = None
+        self._ps_event.clear()
+        retrieve_preset(self.device, idx)
+        if self._ps_event.wait(timeout=self.timeout):
+            return self._last_preset_json
+        else:
+            raise TimeoutError("No preset retrieval response received within timeout window.")
 
     def request_firmware_version(self):
         self._last_firmware_version = None

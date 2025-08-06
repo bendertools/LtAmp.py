@@ -25,6 +25,7 @@ class LtAmpAsync(LtAmpBase):
 -        request_firmware_version()      request firmware version from amp
 -        set_preset(idx)                 change preset slot
 -        request_current_preset()        ask amp for current preset (status event)
+         retrieve_preset(idx)               retrieve preset from amp (status event)
 -        set_qa_slots(idx[])             set QA slots (footswitch assignments)
 -        request_qa_slots()              request QA slots from amp (status event)
 -        audition_preset(preset_json)    audition a preset
@@ -47,6 +48,7 @@ class LtAmpAsync(LtAmpBase):
         self.loop = asyncio.get_event_loop()
         self._cs_event = asyncio.Event() # connection status
         self._fw_event = asyncio.Event() # firmware
+        self._cps_event = asyncio.Event() # current preset
         self._ps_event = asyncio.Event() # preset
         self._qa_event = asyncio.Event() # quick access
         self._aud_event = asyncio.Event() # audition
@@ -74,13 +76,23 @@ class LtAmpAsync(LtAmpBase):
 
     async def request_current_preset(self):
         self._last_preset = None
-        self._ps_event.clear()
+        self._cps_event.clear()
         request_current_preset(self.device)
         try:
-            await asyncio.wait_for(self._ps_event.wait(), timeout=self.timeout)
+            await asyncio.wait_for(self._cps_event.wait(), timeout=self.timeout)
             return self._last_preset
         except asyncio.TimeoutError:
             raise TimeoutError("No current preset response received within timeout window.")
+
+    async def retrieve_preset(self, idx):
+        self._last_preset_json = None
+        self._ps_event.clear()
+        retrieve_preset(self.device, idx)
+        try:
+            await asyncio.wait_for(self._ps_event.wait(), timeout=self.timeout)
+            return self._last_preset_json
+        except asyncio.TimeoutError:
+            raise TimeoutError("No preset retrieval response received within timeout window.")
 
     async def request_firmware_version(self):
         self._last_firmware_version = None
