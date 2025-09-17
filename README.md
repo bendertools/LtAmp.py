@@ -3,12 +3,11 @@
 [![PyPI Latest Release](https://img.shields.io/pypi/v/ltamp.svg)](https://pypi.org/project/ltamp/)
 [![wakatime](https://wakatime.com/badge/user/7482ea9d-3085-4e9b-95ad-1ca78a14d948/project/08632cd5-4928-49fb-8d0d-2d8f2bebbdad.svg)](https://wakatime.com/badge/user/7482ea9d-3085-4e9b-95ad-1ca78a14d948/project/08632cd5-4928-49fb-8d0d-2d8f2bebbdad)
 ![MIT License](https://img.shields.io/github/license/bendertools/ltamp.py)
-![GitHub Repo stars](https://img.shields.io/github/stars/bendertools/LtAmp.py)
 
 🎸 A cross-platform Python module for interacting with the LT amplifiers from a certain guitar company that rhymes with "bender" and names products after horses.
 
 > [!NOTE]
-> At the moment, only LT25 amps are fully tested and have been tested/verified for protocol support.
+> At the moment, only LT25 amps are fully tested and have been tested for protocol support.
 
 ## 👋 Introduction
 
