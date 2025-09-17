@@ -4,14 +4,14 @@
 [![wakatime](https://wakatime.com/badge/user/7482ea9d-3085-4e9b-95ad-1ca78a14d948/project/08632cd5-4928-49fb-8d0d-2d8f2bebbdad.svg)](https://wakatime.com/badge/user/7482ea9d-3085-4e9b-95ad-1ca78a14d948/project/08632cd5-4928-49fb-8d0d-2d8f2bebbdad)
 ![MIT License](https://img.shields.io/github/license/bendertools/ltamp.py)
 
-🎸 A cross-platform Python module for interacting with the LT amplifiers from a guitar company that rhymes with "bender" and names products after horses.
+🎸 A cross-platform Python module for interacting with LT amplifiers from a guitar company that rhymes with "bender" and names gear after horses.
 
 > [!NOTE]
 > At the moment, only LT25 amps are fully tested and have been tested for protocol support.
 
 ## 👋 Introduction
 
-I made this libray because I was disappointed by the lack of certain features in both my amp itself as well as the associated desktop app provided by its manufacturer. Failing to find a starting point which used modern languages/technologies I could build upon (.NET doesnt count), I wrote this little module based on the reverse-engineering work others initiated.
+I made this libray because I was disappointed by the lack of certain features in both my amp itself as well as the associated desktop app provided by its manufacturer. Failing to find a starting point using modern technologies I could build upon (.NET doesnt count), I wrote this little module based on the reverse-engineering work others initiated.
 
 ### ⚙️ Specifications
 
